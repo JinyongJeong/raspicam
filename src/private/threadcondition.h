@@ -44,6 +44,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <mutex>              // std::mutex, std::unique_lock
 #include <condition_variable> // std::condition_variable
 #include <chrono>
+#include <atomic>
 
 #include "exceptions.h"
 namespace raspicam {
@@ -66,13 +67,13 @@ namespace raspicam {
 
             /** Check BroadCast() function is called or not */
             bool IsGrabbed() {
-                return grabbed;
+                return grabbed.load();
             }
             private:
             std::mutex mtx;
             std::condition_variable cv;
             bool ready  ;
-            bool grabbed;
+            std::atomic<bool> grabbed;
 
         };
     }

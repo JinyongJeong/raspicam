@@ -57,7 +57,7 @@ namespace raspicam {
 //            ready=false;
 //             while ( !ready ) cv.wait ( lck , std::chrono::milliseconds(100));
 
-            grabbed = false;
+            grabbed.store(false);
             cv.wait_for ( lck , std::chrono::milliseconds(20));
         }
 
@@ -67,7 +67,7 @@ namespace raspicam {
 ////////////////////////////////
         void ThreadCondition::BroadCast() throw ( raspicam::Exception ) {
 //            ready = true;
-            grabbed = true;
+            grabbed.store(true);
             cv.notify_all();
 
         }
