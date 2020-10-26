@@ -58,7 +58,7 @@ namespace raspicam {
 //             while ( !ready ) cv.wait ( lck , std::chrono::milliseconds(100));
 
             grabbed = false;
-            cv.wait_for ( lck , std::chrono::milliseconds(100));
+            cv.wait_for ( lck , std::chrono::milliseconds(20));
         }
 
 ////////////////////////////////
