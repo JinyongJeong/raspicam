@@ -43,6 +43,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <thread>             // std::thread
 #include <mutex>              // std::mutex, std::unique_lock
 #include <condition_variable> // std::condition_variable
+#include <chrono>
 
 #include "exceptions.h"
 namespace raspicam {
@@ -63,10 +64,15 @@ namespace raspicam {
             /**Wake up all threads waiting for this condition */
             void BroadCast() throw ( raspicam::Exception );
 
+            /** Check BroadCast() function is called or not */
+            bool IsGrabbed() {
+                return grabbed;
+            }
             private:
             std::mutex mtx;
             std::condition_variable cv;
             bool ready  ;
+            bool grabbed;
 
         };
     }

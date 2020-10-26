@@ -175,8 +175,8 @@ namespace raspicam {
          */
         bool Private_Impl::grab() {
             if ( !isCapturing() ) return false;
-            callback_data.waitForFrame();
-            return true;
+            return callback_data.waitForFrame();
+//            return true;
         }
         /**
         *

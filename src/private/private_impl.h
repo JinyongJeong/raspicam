@@ -60,17 +60,14 @@ namespace raspicam {
                     wantToGrab=false;
                     pstate=0;
                 }
-                void waitForFrame() {
-                    //_mutex.lock();
+                bool waitForFrame() {
                     std::unique_lock<std::mutex> lck ( _mutex );
 
                     wantToGrab=true;
-//                    _mutex.unlock();
-//                    Thcond.Wait();
-                       Thcond.Wait(lck); //this will unlock the mutex and wait atomically
+                    Thcond.Wait(lck); //this will unlock the mutex and wait atomically
+                    wantToGrab=false;   // JJY added
+                    return Thcond.IsGrabbed();
                 };
-
-
 
                 RASPIVID_STATE *pstate;            /// pointer to our state in case required in callback
                 Private_Impl *inst;
